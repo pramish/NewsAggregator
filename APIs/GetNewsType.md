@@ -2,7 +2,7 @@
 
 ```typescript
 GET /news-type
-Headers: x-api-news-key: "API_KEY"
+Headers: news_api_key: "API_KEY"
 Content-Type: application/json
 ```
 Response
@@ -95,12 +95,12 @@ type: Array<INewsType>
 const fetch = require('node-fetch');
 
 const apiKey = "API_KEY";
-const apiUrl = "https://www.newsaggregator.com/api/v1/news/news-type";
+const apiUrl = "https://news-scraper-0fmx.onrender.com/api/v1/news/news-type";
 
 fetch(apiUrl, {
   method: 'GET',
   headers: {
-    'x-api-news-key': apiKey,
+    'news_api_key': apiKey,
     'Content-Type': 'application/json'
   }
 })
@@ -113,11 +113,11 @@ fetch(apiUrl, {
 ```bash
 import requests
 
-api_url = "https://www.newsaggregator.com/api/v1/news/news-type"
+api_url = "https://news-scraper-0fmx.onrender.com/api/v1/news/news-type"
 api_key = "API_KEY"
 
 headers = {
-    "x-api-news-key": api_key,
+    "news_api_key": api_key,
     "Content-Type": "application/json"
 }
 
@@ -140,7 +140,7 @@ import (
 )
 
 func main() {
-    apiURL := "https://www.newsaggregator.com/api/v1/news/news-type"
+    apiURL := "https://news-scraper-0fmx.onrender.com/api/v1/news/news-type"
     apiKey := "API_KEY"
 
     req, err := http.NewRequest("GET", apiURL, nil)
@@ -149,7 +149,7 @@ func main() {
         return
     }
 
-    req.Header.Set("x-api-news-key", apiKey)
+    req.Header.Set("news_api_key", apiKey)
     req.Header.Set("Content-Type", "application/json")
 
     client := &http.Client{}
