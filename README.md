@@ -8,9 +8,6 @@ Before you can fetch news, you have to create an account.
 
 <details>
   <summary>Create an account</summary>
-
-> **_NOTE:_**  Please note that the web app is not ready to create API Key. However, you can use Postman or any other REST client to create API Key.
-
 ```typescript
 const BASE_URL = 'https://news-scraper-0fmx.onrender.com/api/v1/'
 ```
@@ -477,8 +474,6 @@ After you've signed in, you can get your authentication token to create API Key
 <details>
   <summary>Create API Key</summary>
 # Create API Key
-
-> **_NOTE:_**  Before creating an API key, you should create an account. Please follow the instructions in [Sign Up](./SignUp.md), [Account Verification](./AccountVerification.md), and [Sign In](./SignIn.md) to create an account and sign in.
 
 ```typescript
 POST /api/v1/apikey
