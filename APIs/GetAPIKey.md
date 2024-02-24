@@ -1,12 +1,7 @@
-> **_NOTE:_**  Please note that the web app is not ready to create API Key. However, you can use Postman or any other REST client to create API Key.
-
-
-# Create API Key
-
-> **_NOTE:_**  Before creating an API key, you should create an account. Please follow the instructions in [Sign Up](./SignUp.md), [Account Verification](./AccountVerification.md), and [Sign In](./SignIn.md) to create an account and sign in.
+# Retrieve API Key 
 
 ```typescript
-POST /api/v1/apikey
+GET /api/v1/apikey
 Headers: 
     Content-Type: application/json
     authorizationtoken: 'string'
@@ -14,11 +9,14 @@ Headers:
 Response
 ```typescript
 // This is the response object
-interface ICreateAPIKeyResponse {
+interface IRetrieveAPIKeyResponse {
     success: boolean;
     message: string;
     apiKeyData?: {
         apiKey: string;
+        userId: string;
+        createdAt: number;
+        updatedAt: number;
     };
 }
 ```
@@ -30,9 +28,12 @@ interface ICreateAPIKeyResponse {
 ```typescript
 {
     "success": true,
-    "message": "API Key created.",
+    "message": "API Key retrieved",
     "apiKeyData": {
-        "apiKey": "some api key"
+        "apiKey": "someAPIKey",
+        "userId": "userId",
+        "createdAt": 1708775942,
+        "updatedAt": 1708775942
     }
 }
 ```
@@ -74,7 +75,7 @@ const fetch = require('node-fetch');
 const apiUrl = "https://news-scraper-0fmx.onrender.com/api/v1/apikey";
 
 fetch(apiUrl, {
-  method: 'POST',
+  method: 'GET',
   headers: {
     'Content-Type': 'application/json',
     'authorizationtoken': 'sometoken'
@@ -97,7 +98,7 @@ headers = {
     "authorizationtoken": "sometoken"
 }
 
-response = requests.post(api_url, headers=headers)
+response = requests.get(api_url, headers=headers)
 
 if response.status_code == 200:
     data = response.json()
@@ -118,7 +119,7 @@ import (
 func main() {
     apiURL := "https://news-scraper-0fmx.onrender.com/api/v1/apikey"
 
-    req, err := http.NewRequest("POST", apiURL, nil)
+    req, err := http.NewRequest("GET", apiURL, nil)
     if err != nil {
         fmt.Println("Error creating request:", err)
         return

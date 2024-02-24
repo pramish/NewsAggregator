@@ -1,47 +1,45 @@
 > **_NOTE:_**  Please note that the web app is not ready to create API Key. However, you can use Postman or any other REST client to create API Key.
 
+```typescript
+const BASE_URL = 'https://news-scraper-0fmx.onrender.com/api/v1/'
+```
 
-# Create API Key
-
-> **_NOTE:_**  Before creating an API key, you should create an account. Please follow the instructions in [Sign Up](./SignUp.md), [Account Verification](./AccountVerification.md), and [Sign In](./SignIn.md) to create an account and sign in.
+## Sign Up
 
 ```typescript
-POST /api/v1/apikey
-Headers: 
-    Content-Type: application/json
-    authorizationtoken: 'string'
+POST /auth/signup
+Headers: 'Content-Type: application/json'
+Body: {
+    email: "string",
+    isPublic: true
+}
 ```
 Response
 ```typescript
 // This is the response object
-interface ICreateAPIKeyResponse {
-    success: boolean;
+interface ISignUpResponse {
+    statusCode: number;
+    isSuccess: boolean;
     message: string;
-    apiKeyData?: {
-        apiKey: string;
-    };
 }
 ```
-
 ## Example response
 
 ### Success
 
 ```typescript
 {
-    "success": true,
-    "message": "API Key created.",
-    "apiKeyData": {
-        "apiKey": "some api key"
-    }
+    "statusCode": 200,
+    "isSuccess": true,
+    "message": "User created"
 }
 ```
-### When authorizationtoken is not passed
+### When email is not provided
 
 ```typescript
 {
-    "message": "Authentication token expired",
-    "isSuccess": false
+    "isSuccess": false, 
+    "message": "Please provide email"
 }
 ```
 ### When a server is not available
@@ -71,14 +69,18 @@ interface ICreateAPIKeyResponse {
 ```bash
 const fetch = require('node-fetch');
 
-const apiUrl = "https://news-scraper-0fmx.onrender.com/api/v1/apikey";
+const apiUrl = "https://news-scraper-0fmx.onrender.com/api/v1/auth/signup";
+const body = {
+    "email": "email@email.com",
+    "isPublic": true
+};
 
 fetch(apiUrl, {
   method: 'POST',
   headers: {
-    'Content-Type': 'application/json',
-    'authorizationtoken': 'sometoken'
-  }
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(body)
 })
   .then(response => response.json())
   .then(data => console.log(data))
@@ -90,16 +92,19 @@ fetch(apiUrl, {
 import requests
 import json
 
-api_url = "https://news-scraper-0fmx.onrender.com/api/v1/apikey"
+api_url = "https://news-scraper-0fmx.onrender.com/api/v1/auth/signup"
+body =  {
+    "email": "email@email.com",
+    "isPublic": true
+};
 
 headers = {
-    "Content-Type": "application/json",
-    "authorizationtoken": "sometoken"
+    "Content-Type": "application/json"
 }
 
-response = requests.post(api_url, headers=headers)
+response = requests.post(api_url, headers=headers, data=json.dumps(body))
 
-if response.status_code == 200:
+if response.status_code == 201:
     data = response.json()
     print(data)
 else:
@@ -113,19 +118,20 @@ import (
     "fmt"
     "net/http"
     "io/ioutil"
+    "bytes"
 )
 
 func main() {
-    apiURL := "https://news-scraper-0fmx.onrender.com/api/v1/apikey"
+    apiURL := "https://news-scraper-0fmx.onrender.com/api/v1/auth/signup"
+    body := []byte(`{"email":"email@email.com", "isPublic":true}`)
 
-    req, err := http.NewRequest("POST", apiURL, nil)
+    req, err := http.NewRequest("POST", apiURL, bytes.NewBuffer(body))
     if err != nil {
         fmt.Println("Error creating request:", err)
         return
     }
 
     req.Header.Set("Content-Type", "application/json")
-    req.Header.Set("authorizationtoken", "sometoken")
 
     client := &http.Client{}
     resp, err := client.Do(req)
@@ -144,3 +150,7 @@ func main() {
     fmt.Println(string(respBody))
 }
 ```
+
+### Now please proceed to verification of your account and sign in
+
+[Verify your account](./AccountVerification.md)
