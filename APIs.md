@@ -4,9 +4,24 @@
 
 ### API Path: https://news-scraper-0fmx.onrender.com/api/v1/news
 
-1. [Sign Up](./APIs/SignUp.md)
-2. [AccountVerification](./APIs/AccountVerification.md)
-3. [Sign In](./APIs/SignIn.md)
+Authentication
 
-4. [Create API Key](./APIs/CreateAPIKey.md)
-5. [Get all news type](./APIs/GetNewsType.md)
+[Sign Up](./APIs/SignUp.md)
+
+[AccountVerification](./APIs/AccountVerification.md)
+
+[Sign In](./APIs/SignIn.md)
+
+News
+
+[Get all news type](./APIs/GetNewsType.md)
+
+API Key
+
+[Create API Key](./APIs/CreateAPIKey.md)
+
+[Get API Key](./APIs/GetAPIKey.md)
+
+[Delete API Key](./APIs/DeleteAPIKey.md)
+
+[Update API Key](./APIs/UpdateAPIKey.md)
