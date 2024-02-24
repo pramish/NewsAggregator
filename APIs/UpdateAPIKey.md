@@ -1,12 +1,7 @@
-> **_NOTE:_**  Please note that the web app is not ready to create API Key. However, you can use Postman or any other REST client to create API Key.
-
-
-# Create API Key
-
-> **_NOTE:_**  Before creating an API key, you should create an account. Please follow the instructions in [Sign Up](./SignUp.md), [Account Verification](./AccountVerification.md), and [Sign In](./SignIn.md) to create an account and sign in.
+# Update API Key
 
 ```typescript
-POST /api/v1/apikey
+PATCH /api/v1/apikey
 Headers: 
     Content-Type: application/json
     authorizationtoken: 'string'
@@ -14,12 +9,9 @@ Headers:
 Response
 ```typescript
 // This is the response object
-interface ICreateAPIKeyResponse {
+interface IUpdateAPIKeyResponse {
     success: boolean;
     message: string;
-    apiKeyData?: {
-        apiKey: string;
-    };
 }
 ```
 
@@ -30,10 +22,7 @@ interface ICreateAPIKeyResponse {
 ```typescript
 {
     "success": true,
-    "message": "API Key created.",
-    "apiKeyData": {
-        "apiKey": "some api key"
-    }
+    "message": "API Key updated"
 }
 ```
 ### When authorizationtoken is not passed
@@ -42,6 +31,15 @@ interface ICreateAPIKeyResponse {
 {
     "message": "Authentication token expired",
     "isSuccess": false
+}
+```
+### When user does not have API key
+
+```typescript
+{
+    "statusCode": 400,
+    "isSuccess": false,
+    "message": "API Key does not exists."
 }
 ```
 ### When a server is not available
@@ -74,7 +72,7 @@ const fetch = require('node-fetch');
 const apiUrl = "https://news-scraper-0fmx.onrender.com/api/v1/apikey";
 
 fetch(apiUrl, {
-  method: 'POST',
+  method: 'PATCH',
   headers: {
     'Content-Type': 'application/json',
     'authorizationtoken': 'sometoken'
@@ -97,7 +95,7 @@ headers = {
     "authorizationtoken": "sometoken"
 }
 
-response = requests.post(api_url, headers=headers)
+response = requests.patch(api_url, headers=headers)
 
 if response.status_code == 200:
     data = response.json()
@@ -118,7 +116,7 @@ import (
 func main() {
     apiURL := "https://news-scraper-0fmx.onrender.com/api/v1/apikey"
 
-    req, err := http.NewRequest("POST", apiURL, nil)
+    req, err := http.NewRequest("PATCH", apiURL, nil)
     if err != nil {
         fmt.Println("Error creating request:", err)
         return
